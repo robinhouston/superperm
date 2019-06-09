@@ -1,0 +1,4 @@
+PROBLEM_FILE = atsp/5-necklace.atsp
+OUTPUT_TOUR_FILE = lkh/out/5-necklace.$.lkh
+RUNS = 2000
+BACKTRACKING = YES

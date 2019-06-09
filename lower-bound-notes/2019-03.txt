@@ -1,0 +1,56 @@
+Progress on the lower bound has been stalled for a while. I can’t speak for anyone else, but I at least got a bit fixated on trying to prove the bound n! + (n-1)! + (n-2)! + (n-3)! + (n-4). Now we know that is impossible, I feel liberated to make smaller improvements; so here is an attempt at one.
+
+I’d be very grateful to anyone who makes an effort to understand what I’m saying here, and welcome all questions, requests for clarification, etc.
+
+I’m going to appeal to a bit of background material that’s in my notes from last year. In particular: the digraph G_n defined in section 2.2 – which is exactly what you’d expect it to be – the notion of a well-behaved path (Definition 2.2; and see Lemma 2 for why this definition is interesting), the idea of slack (Definition 3.2), and Lemma 11. I’m sorry some of this is a bit technical; maybe we can find a nicer way of doing it, but I think we’re going to need something along the lines of Lemma 11 in order to make any sort of progress on the lower bound.
+
+I do not believe that the bound below is tight. My aim here is to establish a way of thinking about the structure of superpermutations that makes it possible to prove better lower bounds, and to give a simple example of how to do that, rather than to push it as far as possible. I hope it’ll be easier to follow that way, and that at least one or two of you will come with me down this path so we can push it further together.
+
+Anyway, here is what I am going to try and prove:
+
+Claim. Every well-behaved Hamiltonian path p in the graph G_n has weight
+
+  w(p) ≥ n! + (n-1)! + (n-2)! - 3 + ((n-3)! - 1) / (n-1).
+
+
+Background and plan
+
+Let’s say a branch in a path p is any edge that enters a 2-cycle that overlaps (shares a 1-cycle) with one that’s previously been entered.
+
+Let branches(p) denote the number of branches in p.
+
+Now, it’s a consequence of the Anon argument that
+
+  w(p) ≥ n! + (n-1)! + (n-2)! - 3 + slack(p) + branches(p) / (n-1),
+
+so it is definitely sufficient for us to show that
+
+  slack(p) + branches(p) ≥ ((n-3)! - 1).
+
+Our aim, then, is to show that for at least ((n-3)! - 1) of the 1-cycles in G_n,
+either p is slack on that 1-cycle,
+or one of the edges from that 1-cycle is a branch.
+Observation: A tight edge from an incomplete 1-cycle to a different 1-cycle must be a proper weight-2 edge that enters a new 2-cycle, hence must be a branch. So an edge from an incomplete 1-cycle to a different 1-cycle is either slack or a branch.
+
+Therefore it suffices to show that there are at least ((n-3)! - 1) 1-cycles that have edges to more than one other 1-cycle.
+
+
+The first-in and last-out trees
+
+Every 1-cycle, other than the one we start in, must have an edge into it somewhere in p; in particular, there must be in p a first edge into the 1-cycle.
+
+Dually every 1-cycle, other than the one we end in, must have in p a last edge out of that 1-cycle.
+
+So every Hamiltonian path p determines a directed graph, the first-in graph, whose nodes are the 1-cycles, with an edge x → y just when the first edge to y has its source in x. We shall label each edge in the first-in graph with the corresponding edge of p. The 1-cycle p starts on has indegree 0, and all other 1-cycles have indegree 1.
+
+Furthermore, the graph must be acyclic, because the labels of a path in the first-in graph must appear in the same order in p. So it is a tree, rooted at the initial 1-cycle and directed away from the root.
+
+Dually the last-out graph is a tree rooted at the final 1-cycle and directed towards the root.
+
+Now consider the intersection of these trees, where there is an edge x → y just when there is an edge in p from x to y that is the first edge into y and also the last edge out of x. Let’s call this the in-out graph.
+
+Every node of the in-out graph has indegree and outdegree at most 1, so it partitions the set of 1-cycles into disjoint chains.
+
+Consider a contiguous portion of such a chain. By Lemma 11, if p is tight on the 1-cycles in the chain, the chain must continue in the same 3-cycle.
+
+I am under no illusions that this is likely to make complete sense to any of you, but I hope it can at least be a starting point for finding better ways to explain it!

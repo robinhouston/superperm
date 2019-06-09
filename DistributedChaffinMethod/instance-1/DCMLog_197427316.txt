@@ -1,0 +1,20 @@
+Mon May 13 11:19:28 2019 Program instance number: 197427316
+Mon May 13 11:19:28 2019 Team name set to Bosh.
+
+Mon May 13 11:19:28 2019 Team name: Bosh
+Mon May 13 11:19:28 2019 To server: action=hello
+Mon May 13 11:19:30 2019 Server: Hello world.
+Mon May 13 11:19:30 2019 To stop the program automatically between tasks, create a file STOP_197427316.txt or STOP_ALL.txt in the working directory
+
+Mon May 13 11:19:30 2019 CTRL-C / SIGINT will be trapped, so you can use it to tell the program to quit after it has finished the current task.
+
+Mon May 13 11:19:30 2019 To server: action=register&programInstance=197427316&team=Bosh
+Mon May 13 11:19:30 2019 Server: Registered
+Mon May 13 11:19:30 2019 Server: Client id: 10508
+Mon May 13 11:19:30 2019 Server: IP: 80.87.19.66
+Mon May 13 11:19:30 2019 Server: programInstance: 197427316
+Mon May 13 11:19:30 2019 Server: team name: Bosh
+Mon May 13 11:19:30 2019 Detected the presence of the file STOP_ALL.txt, so stopping.
+
+Mon May 13 11:19:30 2019 To server: action=unregister&clientID=10508&IP=80.87.19.66&programInstance=197427316
+Mon May 13 11:19:31 2019 Server: OK, client record deleted

@@ -1,0 +1,60 @@
+#!/usr/bin/python
+# -*- encoding: utf8 -*-
+
+import re
+import sys
+
+SYMBOLS = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+s = sys.stdin.read().strip()
+n = int(sys.argv[1])
+sorted_perm = list(SYMBOLS[:n])
+
+def cyclerep(c):
+	"""
+	The canonical representative of the cyclic equivalence class of c
+	"""
+	m = min(c)
+	i = c.index(m)
+	return c[i:] + c[:i]
+
+def parse_2cycle(s):
+	def fail():
+		print >>sys.stderr, "Failed to parse 2-cycle: " + s
+		sys.exit(1)
+
+	mo = re.match(r"^([" + SYMBOLS + r"])/([" + SYMBOLS + r"]{" + str(n-1) + "})$", s)
+	if not mo: fail()
+	head = mo.group(1)
+	body = mo.group(2)
+	if sorted(head + body) != sorted_perm: fail()
+	return (head, cyclerep(body))
+
+def successor(s):
+	if s is None: return None
+	return s[1:] + s[0]
+
+two_cycles = [ parse_2cycle(x) for x in sys.argv[2:] ]
+prev = [ None for tc in two_cycles ]
+
+def perm_in_2cycle(p, (head, body)):
+	i = p.index(head)
+	return cyclerep(p[:i] + p[i+1:]) == body
+
+for i in range(len(s) - n):
+	p = s[i : i+n]
+	if sorted(p) == sorted_perm:
+		row = ""
+		empty = True
+		for (j, two_cycle) in enumerate(two_cycles):
+			record = ""
+			if perm_in_2cycle(p, two_cycle):
+				if p != successor(prev[j]) is not None:
+					prefix = " +++ "
+				else:
+					prefix = "     "
+				record = prefix + p
+				empty = False
+				prev[j] = p
+			row += "  " + record.ljust(n + 5)
+		if not empty: print row
